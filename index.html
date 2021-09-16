@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            background-color: #f6f6f6;
+            width: 400px;
+            margin: 20px auto;
+            font: normal 13px/100% sans-serif;
+            color: #444;
+        }
+
+        div {
+            display: none;
+            padding: 10px;
+            border-width: 0 1px 1px 0;
+            border-style: solid;
+            border-color: #fff;
+            box-shadow: 0 1px 1px #ccc;
+            margin-bottom: 5px;
+            background-color: #f1f1f1;
+        }
+
+        a,
+        a:visited {
+            color: #33739e;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        #loadLess {
+            display: none;
+        }
+
+        #loadMore,
+        #loadLess {
+            padding: 10px;
+            text-align: center;
+            background-color: #33739e;
+            color: #fff;
+            border-width: 0 1px 1px 0;
+            border-style: solid;
+            border-color: #fff;
+            box-shadow: 0 1px 1px #ccc;
+            transition: all 600ms ease-in-out;
+            -webkit-transition: all 600ms ease-in-out;
+            -moz-transition: all 600ms ease-in-out;
+            -o-transition: all 600ms ease-in-out;
+        }
+
+        #loadMore:hover {
+            background-color: #fff;
+            color: #33739e;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>Content</div>
+    <div>New One Content</div>
+    <div>New Two Content</div>
+
+    <a href="#" id="loadMore">Load More</a>
+    <a href="#" id="loadLess">Load Less</a>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("div").slice(0, 6).show();
+            $("#loadMore").on("click", function (e) {
+                e.preventDefault();
+                $("div:hidden").slice(0, 6).slideDown();
+                if ($("div:hidden").length == 0) {
+                    $("#loadLess").fadeIn("slow");
+                    $("#loadMore").hide();
+                    // $("#loadMore").text('Load only the first 4');
+                }
+                $("html,body").animate(
+                    {
+                        scrollTop: $(this).offset().top
+                    },
+                    1500
+                );
+            });
+
+            $("#loadLess").on("click", function (e) {
+                e.preventDefault();
+                $("div:not(:lt(6))").fadeOut();
+                $("#loadMore").fadeIn("slow");
+                $("#loadLess").hide();
+
+                desiredHeight = $(window).height();
+
+                $("html,body").animate(
+                    {
+                        scrollTop: $(this).offset().top + desiredHeight
+                    },
+                    1500
+                );
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
